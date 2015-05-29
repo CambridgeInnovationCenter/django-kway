@@ -1,7 +1,15 @@
 # django-kway
 django-kway is an alternative to django gettext catalog with admin integration.
 
-##Features:
+#####How it works:
+django-kway stores key-values in the database and caches them, so your database will not receive any query when the values will be retrieved. When a value is updated using the admin interface also its cached value will updated.
+
+New entries are automatically created when the passed key is not present yet in the cache/database.
+
+Values are stored using ``model.TextField``, so there is not any ``max_length`` required.
+
+
+##Features
 
 - i18n support *(supporting also multiple plural forms)*: 
   - ``kgettext("")`` function as alternative to **gettext**
@@ -11,21 +19,16 @@ django-kway is an alternative to django gettext catalog with admin integration.
 - Caching
 - Extra-settings
 
-##Installation:
+##Installation
 
 1. Run ``pip install django-kway`` or [download django-kway](http://pypi.python.org/pypi/django-kway) and add the **kway** package to your project
 2. Add ``'kway'`` to ``settings.INSTALLED_APPS``
-3. Are you using **South**?
- - ``python manage.py schemamigration kway --initial``
- - ``python manage.py migrate kway``
+3. If you are using **South** run ``python manage.py schemamigration kway --initial`` and ``python manage.py migrate kway`` otherwise run ``python manage.py syncdb``
+4. Restart your application server
 
- otherwise:
- - ``python manage.py syncdb``
-4. Restart you application server
+##Configuration (optional)
 
-##Configuration (optional):
-
-All these settings are optional, if not re-defined in ``settings.py`` the default values (listed below) will be used.
+All these settings are optional, if not defined in ``settings.py`` the default values (listed below) will be used.
 
 ```python
 #indicate if kway values can be changed directly from the admin list view
@@ -59,9 +62,62 @@ KWAY_USE_KEY_AS_DEFAULT_VALUE = False
 KWAY_USE_KEY_AS_VALUE = False
 ```
 
-##Usage:
-TODO
+##Usage
 
-##TODO:
+####Python
+
+```python
+from kway import kgettext as _
+
+#basic
+_('mykey')
+
+#pass a default value to store if the key does not exist yet
+_('mykey', default='myvalue')
+
+#pass arguments to a value that needs to be formatted
+#let's suppose that mykey value is 'Hello, my name is %(firstname) %(lastname)'
+_('mykey', firstname='Fabio', lastname='Caccamo')
+
+#basic plural form usage, if count matches a plural-form then key plural will be used
+_('mykey', 'mykey_plural', count=3)
+
+#advanced plural form usage, some languages support multiple plural forms, 
+#if count matches a plural-form 'n' then key plural will be used by replacing %s with 'n'
+_('mykey', 'mykey_plural_%s', count=3)
+
+#in this case it's also possible to use a single key
+#if the count is singular, the plural-form 'n' received will be '0'
+_('mykey_%s', count=3)
+```
+
+####Template
+
+```python
+{% load kway_tags %}
+
+#basic
+{% ktrans "mykey" %}
+
+#pass a default value to store if the key does not exist yet
+{% ktrans "mykey" default="myvalue" %}
+
+#pass arguments to a value that needs to be formatted
+#let's suppose that mykey value is 'Hello, my name is %(firstname) %(lastname)'
+{% ktrans "mykey" firstname="Fabio" lastname="Caccamo" %}
+
+#basic plural form usage, if count matches a plural-form then key plural will be used
+{% ktrans "mykey" "mykey_plural" count=3 %}
+
+#advanced plural form usage, some languages support multiple plural forms, 
+#if count matches a plural-form 'n' then key plural will be used by replacing %s with 'n'
+{% ktrans "mykey" "mykey_plural_%s" count=3 %}
+
+#in this case it's also possible to use a single key
+#if the count is singular, the plural-form 'n' received will be '0'
+{% ktrans "mykey_%s" count=3 %}
+```
+
+##TODO
 - Import/Export CSV
 - Google Translate suggestions
