@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from kway import settings
 from kway.models import KText
 
 try: 
@@ -9,13 +10,16 @@ try:
     
     class KTextTranslationOptions(TranslationOptions):
         
-        fields = ('value', )
-        
+        if settings.KWAY_USE_MODELTRANSLATION:
+            fields = ('value', )
+        else:
+            fields = ()
+            
     translator.register(KText, KTextTranslationOptions)
     
     
 except ImportError:
     
     pass
-    
+
     
