@@ -76,7 +76,7 @@ _('mykey')
 _('mykey', default='myvalue')
 
 #pass arguments to a value that needs to be formatted
-#let's suppose that mykey value is 'Hello, my name is %(firstname) %(lastname)'
+#let's suppose that mykey value is 'Hello, my name is %(firstname)s %(lastname)s'
 _('mykey', firstname='Fabio', lastname='Caccamo')
 
 #basic plural form usage, if count matches a plural-form then key plural will be used
@@ -103,7 +103,7 @@ _('mykey_%s', count=3)
 {% ktrans "mykey" default="myvalue" %}
 
 #pass arguments to a value that needs to be formatted
-#let's suppose that mykey value is 'Hello, my name is %(firstname) %(lastname)'
+#let's suppose that mykey value is 'Hello, my name is %(firstname)s %(lastname)s'
 {% ktrans "mykey" firstname="Fabio" lastname="Caccamo" %}
 
 #basic plural form usage, if count matches a plural-form then key plural will be used
