@@ -69,6 +69,10 @@ class KTextAdmin(__KTextAdminBaseClass):
     list_per_page = settings.KWAY_ADMIN_LIST_PER_PAGE
     
     readonly_fields = ('key', )
+    
+    def get_readonly_fields(self, request, obj = None):
+        return () if request.user.is_superuser else self.readonly_fields
+    
     search_fields = ('key', ) + value_fields
     
     fieldsets = (
