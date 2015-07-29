@@ -3,10 +3,17 @@
 from django.utils import translation
 
 from kway import cache
-from kway.models import KText
+from kway.models import KImage, KText
 from kway import localization
 from kway import settings
 from kway.version import __version__
+
+
+def kgetimage( key, *args, **kwargs ):
+
+    obj, obj_created = KImage.objects.get_or_create(key = key)
+
+    return obj.value.url if obj.value else ''
 
 
 def kgettext( key, key_plural = None, count = None, *args, **kwargs ):

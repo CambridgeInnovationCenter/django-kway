@@ -3,10 +3,18 @@
 from django import template
 from django.template.defaultfilters import stringfilter
 
-from kway import kgettext
+from kway import kgetimage, kgettext
 
 
 register = template.Library()
+
+
+@register.simple_tag(takes_context = False)
+def kimage(key, *args, **kwargs):
+    
+    value = kgetimage(key, *args, **kwargs)
+    
+    return value
 
 
 @register.simple_tag(takes_context = False)

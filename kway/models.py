@@ -5,6 +5,28 @@ from django.db.models.signals import post_save
 
 from kway import cache, settings, utils
 
+try:
+    from sorl.thumbnail import ImageField
+    
+except ImportError:    
+    
+    from django.db.models import ImageField
+    
+
+class KImage(models.Model):
+    
+    key = models.CharField(max_length = 100, unique = True, verbose_name = 'Key')
+    value = ImageField(blank = True, default = '', upload_to = 'uploads/kway/images/', verbose_name = 'Value')
+    
+    class Meta:
+        ordering = ['key']
+        verbose_name = 'Image'
+        verbose_name_plural = 'Images'
+        
+    def __unicode__(self):
+        
+        return unicode(u'[%s] - %s' % (self.key, self.value, ))
+
 
 class KText(models.Model):
     
@@ -19,23 +41,6 @@ class KText(models.Model):
     def __unicode__(self):
         
         return unicode(u'[%s] - %s' % (self.key, self.value, ))
-        
-        
-'''
-class KImage(models.Model):
-    
-    key = models.CharField(max_length = 100, unique = True, verbose_name = 'Key')
-    value = models.ImageField(blank = True, default = '', upload_to = 'uploads/kway/images/', verbose_name = 'Value')
-    
-    class Meta:
-        ordering = ['key']
-        verbose_name = 'Image'
-        verbose_name_plural = 'Images'
-        
-    def __unicode__(self):
-        
-        return unicode(u'[%s] - %s' % (self.key, self.value, ))
-'''
 
         
 if not settings.KWAY_USE_MODELTRANSLATION:
