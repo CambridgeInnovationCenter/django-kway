@@ -19,6 +19,7 @@ class KImage(models.Model):
     value = ImageField(blank = True, default = '', upload_to = 'uploads/kway/images/', verbose_name = 'Value')
     
     class Meta:
+        app_label = 'kway'
         ordering = ['key']
         verbose_name = 'Image'
         verbose_name_plural = 'Images'
@@ -34,6 +35,7 @@ class KText(models.Model):
     value = models.TextField(blank = True, default = '', verbose_name = 'Value')
     
     class Meta:
+        app_label = 'kway'
         ordering = ['key']
         verbose_name = 'Text'
         verbose_name_plural = 'Texts'
