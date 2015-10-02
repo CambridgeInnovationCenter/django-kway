@@ -19,6 +19,10 @@ Values are stored using ``model.TextField``, so there is not any ``max_length`` 
 - Caching
 - Extra-settings
 
+#Requirements
+- Python 2.6, Python 2.7
+- Django 1.5 through Django 1.8
+
 ##Installation
 
 1. Run ``pip install django-kway`` or [download django-kway](http://pypi.python.org/pypi/django-kway) and add the **kway** package to your project
