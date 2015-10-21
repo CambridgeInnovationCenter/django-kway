@@ -1,16 +1,32 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
+from django.db.models import ImageField
 from django.db.models.signals import post_save
 
 from kway import cache, settings, utils
 
-try:
-    from sorl.thumbnail import ImageField
+
+__add_localized_value_fields_manually = True
+
+if settings.KWAY_USE_MODELTRANSLATION:
     
-except ImportError:    
+    try:
+        from modeltranslation.translator import translator
+        
+        __add_localized_value_fields_manually = False
+        
+    except ImportError:
+        pass
+
+
+if settings.KWAY_USE_SORL_THUMBNAIL:
     
-    from django.db.models import ImageField
+    try:
+        from sorl.thumbnail import ImageField
+        
+    except ImportError:    
+        pass
     
 
 class KImage(models.Model):
@@ -45,7 +61,7 @@ class KText(models.Model):
         return unicode(u'[%s] - %s' % (self.key, self.value, ))
 
         
-if not settings.KWAY_USE_MODELTRANSLATION:
+if __add_localized_value_fields_manually:
     
     #http://www.mixedcase.nl/articles/2009/11/26/how-dynamically-add-fields-django-model/
     for language in settings.KWAY_LANGUAGES:

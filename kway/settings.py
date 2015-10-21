@@ -36,4 +36,5 @@ KWAY_USE_KEY_AS_DEFAULT_VALUE = getattr(settings, 'KWAY_USE_KEY_AS_DEFAULT_VALUE
 KWAY_USE_KEY_AS_VALUE = getattr(settings, 'KWAY_USE_KEY_AS_VALUE', False)
 
 KWAY_USE_MODELTRANSLATION = ('modeltranslation' in settings.INSTALLED_APPS)
+KWAY_USE_SORL_THUMBNAIL = ('sorl.thumbnail' in settings.INSTALLED_APPS)
 

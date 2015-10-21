@@ -8,21 +8,29 @@ from django.forms import Textarea
 from kway.models import KImage, KText
 from kway import settings, utils
 
-try:
-    from modeltranslation.admin import TabbedTranslationAdmin as __KTextAdminBaseClass
 
-except ImportError:
+__KTextAdminBaseClass = admin.ModelAdmin
+
+if settings.KWAY_USE_MODELTRANSLATION:
+
+    try:
+        from modeltranslation.admin import TabbedTranslationAdmin as __KTextAdminBaseClass
+
+    except ImportError:
+        pass
     
-    __KTextAdminBaseClass = admin.ModelAdmin
-    
-try:
-    from sorl.thumbnail.admin import AdminImageMixin as __KImageAdminImageMixin
-    from sorl.thumbnail import get_thumbnail
-    
-except ImportError:
-    
-    __KImageAdminImageMixin = object
-    get_thumbnail = None
+
+__KImageAdminImageMixin = object
+get_thumbnail = None
+
+if settings.KWAY_USE_SORL_THUMBNAIL:
+
+    try:
+        from sorl.thumbnail.admin import AdminImageMixin as __KImageAdminImageMixin
+        from sorl.thumbnail import get_thumbnail as get_thumbnail
+        
+    except ImportError:
+        pass
     
     
 class BlankListFilter(admin.SimpleListFilter):
