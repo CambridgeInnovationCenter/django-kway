@@ -53,11 +53,13 @@ def update_values_post_save(sender, instance, **kwargs):
         
         for language in settings.KWAY_LANGUAGES:
             
-            localized_key = utils.get_localized_value_field_name(language[0])
-            value = getattr(instance, localized_key)
+            language_code = language[0]
+            localized_key = utils.get_localized_key(instance.key, language_code)
+            localized_value_field_name = utils.get_localized_value_field_name(language_code)
+            localized_value = getattr(instance, localized_value_field_name)
             
-            cache.set(localized_key, value)
-        
+            cache.set(localized_key, localized_value)
+            
         cache.close()
         
         
