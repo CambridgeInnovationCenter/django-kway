@@ -48,7 +48,7 @@ class KImage(models.Model):
 class KText(models.Model):
     
     key = models.CharField(max_length = 100, unique = True, verbose_name = 'Key')
-    value = models.TextField(blank = True, default = '', verbose_name = 'Value')
+    value = models.TextField(blank = True, default = '', editable = False, verbose_name = 'Value')
     
     class Meta:
         app_label = 'kway'
