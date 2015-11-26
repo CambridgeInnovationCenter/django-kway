@@ -3,9 +3,10 @@
 from django.utils import translation
 
 from kway import cache
-from kway.models import KImage, KText
 from kway import localization
 from kway import settings
+from kway import utils
+from kway.models import KImage, KText
 from kway.version import __version__
 
 
