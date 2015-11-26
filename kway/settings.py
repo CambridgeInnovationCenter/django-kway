@@ -31,6 +31,9 @@ if len(KWAY_LANGUAGES) > 0:
 else:
     raise ValueError('KWAY_LANGUAGES must contain at least 1 language')
     
+KWAY_DEFAULT_LANGUAGE = getattr(settings, 'KWAY_DEFAULT_LANGUAGE', settings.DEFAULT_LANGUAGE)
+KWAY_LANGUAGES[KWAY_DEFAULT_LANGUAGE]
+
 KWAY_USE_KEY_AS_DEBUG_VALUE = getattr(settings, 'KWAY_USE_KEY_AS_DEBUG_VALUE', True) and settings.DEBUG
 KWAY_USE_KEY_AS_DEFAULT_VALUE = getattr(settings, 'KWAY_USE_KEY_AS_DEFAULT_VALUE', False)
 KWAY_USE_KEY_AS_VALUE = getattr(settings, 'KWAY_USE_KEY_AS_VALUE', False)

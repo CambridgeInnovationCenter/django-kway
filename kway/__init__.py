@@ -56,11 +56,16 @@ def kgettext( key, key_plural = None, count = None, *args, **kwargs ):
     
     debug_value = ('[[ ' + key + ' ]]' if settings.KWAY_USE_KEY_AS_DEBUG_VALUE else '')
     
-    if not value:
+    if value == None:
         
-        obj, obj_created = KText.objects.get_or_create(key = key, defaults = { 'value':default_value })
+        default_language_localized_value_field_name = utils.get_localized_value_field_name( settings.KWAY_LANGUAGES[ settings.KWAY_DEFAULT_LANGUAGE ][0] )
+        current_language_localized_value_field_name = utils.get_localized_value_field_name()
         
-        value = obj.value
+        obj_defaults = { default_language_localized_value_field_name:default_value }
+        
+        obj, obj_created = KText.objects.get_or_create(key = key, defaults = obj_defaults)
+        
+        value = getattr(obj, current_language_localized_value_field_name, getattr(obj, default_language_localized_value_field_name, default_value))
         
         cache.set_value_for_key(key, value)
         
