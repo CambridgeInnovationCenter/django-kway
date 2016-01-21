@@ -129,7 +129,7 @@ _('mykey_%s', count=3)
 ##License
 The MIT License (MIT)
 
-Copyright (c) 2015 Fabio Caccamo - fabio.caccamo@gmail.com
+Copyright (c) 2016 Fabio Caccamo - fabio.caccamo@gmail.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
