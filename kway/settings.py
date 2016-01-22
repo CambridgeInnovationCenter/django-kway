@@ -3,9 +3,10 @@
 from django.conf import settings
 
 
-KWAY_ADMIN_ACTIONS_NONE = getattr(settings, 'KWAY_ADMIN_ACTIONS_NONE', True)
 KWAY_ADMIN_LIST_EDITABLE = getattr(settings, 'KWAY_ADMIN_LIST_EDITABLE', True)
 KWAY_ADMIN_LIST_PER_PAGE = getattr(settings, 'KWAY_ADMIN_LIST_PER_PAGE', 100)
+
+KWAY_ADMIN_SHOW_ACTIONS = getattr(settings, 'KWAY_ADMIN_SHOW_ACTIONS', False)
 KWAY_ADMIN_SHOW_LIST_FILTER = getattr(settings, 'KWAY_ADMIN_SHOW_LIST_FILTER', True)
 
 KWAY_CACHE_NAME = getattr(settings, 'KWAY_CACHE_NAME', 'kway')
