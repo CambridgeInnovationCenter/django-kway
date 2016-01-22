@@ -3,6 +3,7 @@
 from django.conf import settings
 
 
+KWAY_ADMIN_ACTIONS_NONE = getattr(settings, 'KWAY_ADMIN_ACTIONS_NONE', True)
 KWAY_ADMIN_LIST_EDITABLE = getattr(settings, 'KWAY_ADMIN_LIST_EDITABLE', True)
 KWAY_ADMIN_LIST_PER_PAGE = getattr(settings, 'KWAY_ADMIN_LIST_PER_PAGE', 100)
 

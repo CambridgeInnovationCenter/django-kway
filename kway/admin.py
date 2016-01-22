@@ -70,7 +70,8 @@ class BlankListFilter(admin.SimpleListFilter):
 
 class KImageAdmin(__KImageAdminImageMixin, admin.ModelAdmin):
     
-    actions = None
+    if settings.KWAY_ADMIN_ACTIONS_NONE:
+        actions = None
     
     list_display = ('key', 'value', )
     
@@ -127,7 +128,8 @@ admin.site.register(KImage, KImageAdmin)
 
 class KTextAdmin(__KTextAdminBaseClass):
     
-    actions = None
+    if settings.KWAY_ADMIN_ACTIONS_NONE:
+        actions = None
     
     value_fields = ()
     
