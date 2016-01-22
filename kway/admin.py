@@ -141,7 +141,9 @@ class KTextAdmin(__KTextAdminBaseClass):
     if settings.KWAY_ADMIN_LIST_EDITABLE:
         list_editable = value_fields
     
-    list_filter = (BlankListFilter, )
+    if settings.KWAY_ADMIN_SHOW_LIST_FILTER:
+        list_filter = (BlankListFilter, )
+    
     list_per_page = settings.KWAY_ADMIN_LIST_PER_PAGE
     
     readonly_fields = ('key', )
