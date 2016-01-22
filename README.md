@@ -36,11 +36,17 @@ Values are stored using ``model.TextField``, so there is not any ``max_length`` 
 All these settings are optional, if not defined in ``settings.py`` the default values (listed below) will be used.
 
 ```python
-#indicate if kway values can be changed directly from the admin list view
+#indicates if kway values can be changed directly from the admin list view
 KWAY_ADMIN_LIST_EDITABLE = True
 
-#indicate if how many kway rows will be displayed in the admin list view
+#indicates if how many kway rows will be displayed in the admin list view
 KWAY_ADMIN_LIST_PER_PAGE = 100
+
+#indicates if kway admin actions will be displayed or not
+KWAY_ADMIN_SHOW_ACTIONS = False
+
+#indicates if kway admin list_filter will be displayed or not
+KWAY_ADMIN_SHOW_LIST_FILTER = True
 
 #kway cache name, if the specified cache backend does not exist the default one will be used
 KWAY_CACHE_NAME = 'kway'
