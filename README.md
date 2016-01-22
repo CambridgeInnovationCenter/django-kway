@@ -27,8 +27,9 @@ Values are stored using ``model.TextField``, so there is not any ``max_length`` 
 
 1. Run ``pip install django-kway`` or [download django-kway](http://pypi.python.org/pypi/django-kway) and add the **kway** package to your project
 2. Add ``'kway'`` to ``settings.INSTALLED_APPS``
-3. If you are using **South** run ``python manage.py schemamigration kway --initial`` and ``python manage.py migrate kway`` otherwise run ``python manage.py syncdb``
-4. Restart your application server
+3. If you are using **South** run ``python manage.py schemamigration kway --initial`` and ``python manage.py migrate kway`` otherwise run ``python manage.py migrate``
+4. If your project is multi-language run ``python manage.py makemigrations kway`` then ``python manage.py migrate kway``
+5. Restart your application server
 
 ##Configuration (optional)
 
