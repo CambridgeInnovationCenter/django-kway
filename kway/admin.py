@@ -67,7 +67,61 @@ class BlankListFilter(admin.SimpleListFilter):
         else:
             return queryset
             
-
+            
+class KeywordListFilter(admin.SimpleListFilter):
+    
+    title = 'keyword'
+    parameter_name = 'keyword'
+    
+    def lookups(self, request, model_admin):
+        
+        keys = list(model_admin.model.objects.values_list('key', flat = True).order_by('key'))
+        #print(keys)
+        
+        keywords = []
+        words_counter = {}
+        
+        for key in keys:
+            key_keywords = key.split('_')
+            
+            for word in key_keywords:
+                
+                if not word in words_counter:
+                    words_counter[word] = 1
+                else:
+                    words_counter[word] += 1
+                
+                #only prefix
+                #break
+                
+        for word in words_counter:
+            
+            if words_counter[word] > 1:
+                #print(word)
+                keywords.append(word)# + ' (' + str(words_counter[word]) + ')')
+        
+        keywords.sort()
+        #print(keywords)
+        
+        lookups_values = ()
+        
+        for keyword in keywords:
+            lookups_values += ((keyword, u'%s (%s)' % (keyword, str(words_counter[keyword]), ), ), )
+            
+        return lookups_values
+        
+        
+    def queryset(self, request, queryset):
+        
+        value = self.value()
+        
+        if value:
+            #return queryset.filter( key__startswith = value )
+            return queryset.filter( key__icontains = value )
+        else:
+            return queryset
+        
+        
 class KImageAdmin(__KImageAdminImageMixin, admin.ModelAdmin):
     
     if not settings.KWAY_ADMIN_SHOW_ACTIONS:
@@ -142,7 +196,7 @@ class KTextAdmin(__KTextAdminBaseClass):
         list_editable = value_fields
     
     if settings.KWAY_ADMIN_SHOW_LIST_FILTER:
-        list_filter = (BlankListFilter, )
+        list_filter = (BlankListFilter, KeywordListFilter, )
     
     list_per_page = settings.KWAY_ADMIN_LIST_PER_PAGE
     
